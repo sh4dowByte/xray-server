@@ -35,7 +35,7 @@ NC='\e[0m'
 MYIP=$(curl -s ifconfig.me)
 clear
 #IZIN=$( curl https://raw.githubusercontent.com/bmayu1/izin/main/ip | grep $MYIP )
-IZIN=$(curl -s https://raw.githubusercontent.com/bmayu1/izin/main/ip | grep "$MYIP" | awk '{ print $4 }')
+IZIN=$(curl -s https://raw.githubusercontent.com/sh4dowByte/scriptvpn/refs/heads/main/ip | grep "$MYIP" | awk '{ print $4 }')
 if [ $MYIP = $IZIN ]; then
 echo -e "${green}Permission Accepted...${NC}"
 else
