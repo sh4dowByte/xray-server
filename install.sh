@@ -34,18 +34,6 @@ NC='\e[0m'
 
 MYIP=$(curl -s ifconfig.me)
 clear
-#IZIN=$( curl https://raw.githubusercontent.com/bmayu1/izin/main/ip | grep $MYIP )
-IZIN=$(curl -s https://raw.githubusercontent.com/sh4dowByte/scriptvpn/refs/heads/main/ip | grep "$MYIP" | awk '{ print $4 }')
-if [ $MYIP = $IZIN ]; then
-echo -e "${green}Permission Accepted...${NC}"
-else
-clear
-echo -e "${red}Permission Denied!${NC}";
-echo "Please Contact Admin"
-echo "Telegram t.me/bumiayuvpn"
-exit 1
-fi
-clear
 
 # // Melakukan Update Dan Upgrade Data Server
 apt update -y
@@ -267,8 +255,8 @@ elif [[ $ip_version == "6" ]]; then
     chmod +x /root/.acme.sh/acme.sh
     /root/.acme.sh/acme.sh --upgrade --auto-upgrade
     /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
-    /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256 --listen-v6
-    ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
+    /root/.acme.sh/acme.sh --issue -d juhdi.vpsbumiayu.site --standalone -k ec-256 --listen-v6
+    ~/.acme.sh/acme.sh --installcert -d juhdi.vpsbumiayu.site --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
     echo "Cert installed for IPv6."
 else
     echo "Invalid IP version. Please choose '4' for IPv4 or '6' for IPv6."
@@ -282,7 +270,7 @@ rm /etc/nginx/sites-available/default
 cd /etc/nginx
 rm -fr conf.d
 rm -fr nginx.conf
-wget -O nginx.conf "https://github.com/xhidrolix/cnf/raw/main/.conf"
+wget -O nginx.conf "https://raw.githubusercontent.com/sh4dowByte/scriptvpn/refs/heads/main/nginx/withoutssl.conf"
 cd
 clear
 
