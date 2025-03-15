@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    command: tunnel --no-autoupdate run --token REPLACE_YOUR_TOKEN_CLOUDFLARED
+    restart: unless-stopped
+    network_mode: host
+    environment:
+      - TUNNEL_TRANSPORT_LOGLEVEL=info
