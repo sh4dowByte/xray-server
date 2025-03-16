@@ -1,15 +1,5 @@
 #!/bin/bash
 
-# */
-# Credit Autoscript AIO
-# [ @bumiayuvpn | Owner     ]
-# [ @vpnbumiayu | channel   ]
-# ===========================
-# Tools Usage:
-#             - Termux, MT Manager, Acode
-#             - VsCode, Github, Comand Promt
-# /*
-
 clear
 #rm -fr /etc/resolv.conf
 echo "nameserver 1.1.1.1
@@ -23,7 +13,7 @@ clear
 clear && clear && clear
 clear;clear;clear
 
-link="https://raw.githubusercontent.com/bmayu1/scriptvpn/main"
+link="https://raw.githubusercontent.com/sh4dowByte/xray-server/main"
 # [ Warna ]
 red='\e[1;31m'
 green='\e[0;32m'
@@ -129,7 +119,7 @@ rm /etc/default/dropbear
 rm /etc/issue.net
 cat> /etc/issue.net << END
 <p style="text-align:center">
-<font color="#00FF00"><b> WELCOME TO BumiayuvpN </b></font><br>
+<font color="#00FF00"><b> WELCOME TO XRAY SERVER </b></font><br>
 <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font color='#F1006F'>▬</font><br>
 <font color="#F5FE00"><b> THANKS YOU FOR USING OUR SERVICE </b></font><br>
 <font color="#FFA500"><b> PLEASE FOLLOW THE SERVER RULES </b></font><br>
@@ -141,8 +131,6 @@ cat> /etc/issue.net << END
 <font color='#BC8F8F'><b>  NO HACKING AND CARDING   </b></font><br>
 <font color="#E51369"><b>    MAX LOGIN 1 DEVICE     </b></font><br>
 <font color='red'><b> IF YOU VIOLATE YOUR ACCOUNT WE WILL BE BANNED </b></font><br>
-<font color="#40E0D0"><b> Join Telegram Channel: https://t.me/vpnbumiayu</br></font><br>
-<font color="#6A5ACD"><b> Buy VPN Premium Contact https://t.me/bumiayuvpn</br></font><br>
 <font color='#FF0059'>▬</font><font color='#F1006F'>▬</font><font color='#E30085'>▬</font><font color='#D6009B'>▬</font><font color='#C800B1'>▬</font><font color='#BB00C7'>ஜ</font><font color='#AD00DD'>۩</font><font color='#9F00F3'>۞</font><font color='#9F00F3'>۩</font><font color='#AD00DD'>ஜ</font><font color='#BB00C7'>▬</font><font color='#C800B1'>▬</font><font color='#D6009B'>▬</font><font color='#E30085'>▬</font><font color='#F1006F'>▬</font>
 END
 if grep -Ei 'ubuntu.*(24|23)' /etc/os-release || grep -Ei 'debian.*12' /etc/os-release; then
@@ -225,17 +213,7 @@ clear
 apt install certbot -y
 sudo lsof -t -i tcp:80 -s tcp:listen | sudo xargs kill
 clear
-#echo "start"
-#cd /root/
-#clear
-#echo "starting...., Port 80 Akan di Hentikan Saat Proses install Cert"
-#certbot certonly --standalone --preferred-challenges http --agree-tos --email uut.mu.ak@gmail.com -d $domain
-#cp /etc/letsencrypt/live/$domain/fullchain.pem /etc/xray/xray.crt
-#cp /etc/letsencrypt/live/$domain/privkey.pem /etc/xray/xray.key
-#chmod 644 /etc/xray/xray.key
-#chmod 644 /etc/xray/xray.crt
-#rm -fr /etc/xray/xray.*
-clear
+
 read -p "Install certificate for IPv4 or IPv6? (4/6): " ip_version
 #read -p "Enter domain: " domain
 if [[ $ip_version == "4" ]]; then
@@ -255,8 +233,8 @@ elif [[ $ip_version == "6" ]]; then
     chmod +x /root/.acme.sh/acme.sh
     /root/.acme.sh/acme.sh --upgrade --auto-upgrade
     /root/.acme.sh/acme.sh --set-default-ca --server letsencrypt
-    /root/.acme.sh/acme.sh --issue -d juhdi.vpsbumiayu.site --standalone -k ec-256 --listen-v6
-    ~/.acme.sh/acme.sh --installcert -d juhdi.vpsbumiayu.site --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
+    /root/.acme.sh/acme.sh --issue -d $domain --standalone -k ec-256 --listen-v6
+    ~/.acme.sh/acme.sh --installcert -d $domain --fullchainpath /etc/xray/xray.crt --keypath /etc/xray/xray.key --ecc
     echo "Cert installed for IPv6."
 else
     echo "Invalid IP version. Please choose '4' for IPv4 or '6' for IPv6."
@@ -270,7 +248,7 @@ rm /etc/nginx/sites-available/default
 cd /etc/nginx
 rm -fr conf.d
 rm -fr nginx.conf
-wget -O nginx.conf "https://raw.githubusercontent.com/sh4dowByte/scriptvpn/refs/heads/main/nginx/withoutssl.conf"
+wget -O nginx.conf "https://raw.githubusercontent.com/sh4dowByte/xray-server/refs/heads/main/nginx/withoutssl.conf"
 cd
 clear
 
@@ -282,9 +260,9 @@ wget -O m.zip "${link}/menu.zip"
 unzip m.zip ; rm -fr m.zip ; chmod +x *
 clear
 cd /etc/xray
-wget -O m.zip "${link}/json.zip"
-unzip m.zip ; rm -fr m.zip ; chmod +x *
-echo "BumiayuvpN Server" > /etc/handeling
+wget -O config.json "${link}/config.json"
+chmod +x config.json
+echo "XRAY Server" > /etc/handeling
 echo "#00FF00" >> /etc/handeling
 echo "${MYIP}" > /usr/bin/.ipvps
 clear
@@ -352,22 +330,6 @@ RestartPreventExitStatus=23
 [Install]
 WantedBy=multi-user.target
 END
-
-# // Membuat service Lainya
-#cat> /etc/systemd/system/limit.service << END
-#[Unit]
-#Description=Limit All Service By VnzVPN
-#Documentation=https://t.me/VnzVPN
-#After=syslog.target network-online.target
-
-#[Service]
-#User=root
-#NoNewPrivileges=true
-#ExecStart=/usr/bin/loop
-
-#[Install]
-#WantedBy=multi-user.target
-#END
 
 cat> /etc/systemd/system/badvpn.service << END
 [Unit]
@@ -475,7 +437,7 @@ clear
 echo ""
 echo -e "\e[1m\e[34m****************************************************"
 echo -e "  Installation & Configuration of \e[1;36mHysteria Protocol"
-echo -e "              (Version 1.3.5) - by: BMAYU"
+echo -e "              (Version 1.3.5)"
 echo -e "\e[1m\e[34m****************************************************\e[0m"
 echo ""
 }
