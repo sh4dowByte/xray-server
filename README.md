@@ -1,4 +1,3 @@
-
 # Xray Installer for Linux
 
 This script allows you to install and configure Xray on your Linux server easily.
@@ -67,3 +66,8 @@ This script is provided under the MIT License.
 ---
 
 **Note:** Use this script at your own risk. Ensure you review the script before execution.
+
+## Disclaimer
+
+This script has been modified from the original script available at: [https://github.com/bmayu1/scriptvpn](https://github.com/bmayu1/scriptvpn).
+
