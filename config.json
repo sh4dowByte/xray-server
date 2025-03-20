@@ -1,284 +1,273 @@
 {
-  "log" : {
+  "log": {
     "access": "/var/log/xray/access.log",
     "loglevel": "info"
   },
   "inbounds": [
-      {
-      "listen": "127.0.0.1",
+    // API Inbound
+    {
+      "listen": "0.0.0.0",
       "port": 10085,
       "protocol": "dokodemo-door",
       "settings": {
-        "address": "127.0.0.1"
+        "address": "0.0.0.0"
       },
       "tag": "api"
     },
+    // Shadowsocks WebSocket Inbound
     {
-         "listen": "127.0.0.1",
-        "port": "10004",
-        "protocol": "shadowsocks",
-        "settings": {
-           "clients": [
-           {
-           "method": "aes-128-gcm",
-          "password": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0"
-#ssws
-           }
-          ],
-          "network": "tcp,udp"
-       },
-       "streamSettings":{
-          "network": "ws",
-             "wsSettings": {
-               "path": "/ssws"
-           }
-        }
-     },
-   {
-     "listen": "127.0.0.1",
-     "port": "14016",
-     "protocol": "vless",
+      "listen": "0.0.0.0",
+      "port": 10004,
+      "protocol": "shadowsocks",
       "settings": {
-          "decryption":"none",
-            "clients": [
-               {
-                 "id": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d"
-#vless
-             }
-          ]
-       },
-       "streamSettings":{
-         "network": "ws",
-            "wsSettings": {
-                "path": "/vless"
+        "clients": [
+          {
+            "method": "aes-128-gcm",
+            "password": "1d1c1d94-6987-4658-a4dc-8821a30fe7e0" // #ssws
           }
+        ],
+        "network": "tcp,udp"
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/ssws"
         }
-     },
+      }
+    },
+    // VLESS WebSocket Inbound
     {
-     "listen": "127.0.0.1",
-     "port": "95",
-     "protocol": "vmess",
+      "listen": "0.0.0.0",
+      "port": 14016,
+      "protocol": "vless",
       "settings": {
-            "clients": [
-               {
-                 "id": "rerechan-store",
-                 "alterId": 0
-#vmess
-             }
-          ]
-       },
-       "streamSettings":{
-         "network": "ws",
-            "wsSettings": {
-                "path": "/worryfree"
+        "decryption": "none",
+        "clients": [
+          {
+            "id": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d" // #vless
           }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/vless"
         }
-     },
-     {
-     "listen": "127.0.0.1",
-     "port": "96",
-     "protocol": "vmess",
-      "settings": {
-            "clients": [
-               {
-                 "id": "rerechan-store",
-                 "alterId": 0
-#vmess
-             }
-          ]
-       },
-       "streamSettings":{
-         "network": "ws",
-            "wsSettings": {
-                "path": "/kuota-habis"
-          }
-        }
-     },
-     {
-     "listen": "127.0.0.1",
-     "port": "23456",
-     "protocol": "vmess",
-      "settings": {
-            "clients": [
-               {
-                 "id": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d",
-                 "alterId": 0
-#vmess
-             }
-          ]
-       },
-       "streamSettings":{
-         "network": "ws",
-            "wsSettings": {
-                "path": "/vmess"
-          }
-        }
-     },
+      }
+    },
+    // VMess WebSocket Inbound (worryfree)
     {
-      "listen": "127.0.0.1",
-      "port": "25432",
+      "listen": "0.0.0.0",
+      "port": 95,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "rerechan-store",
+            "alterId": 0 // #vmess
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/worryfree"
+        }
+      }
+    },
+    // VMess WebSocket Inbound (kuota-habis)
+    {
+      "listen": "0.0.0.0",
+      "port": 96,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "rerechan-store",
+            "alterId": 0 // #vmess
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/kuota-habis"
+        }
+      }
+    },
+    // VMess WebSocket Inbound (vmess)
+    {
+      "listen": "0.0.0.0",
+      "port": 23456,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d",
+            "alterId": 0 // #vmess
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/vmess"
+        }
+      }
+    },
+    // Trojan WebSocket Inbound
+    {
+      "listen": "0.0.0.0",
+      "port": 25432,
       "protocol": "trojan",
       "settings": {
-          "decryption":"none",		
-           "clients": [
-              {
-                 "password": "rerechan-store"
-#trojan
-              }
-          ],
-         "udp": true
-       },
-       "streamSettings":{
-           "network": "ws",
-           "wsSettings": {
-               "path": "/t"
-            }
-         }
-     },
-      {
-        "listen": "127.0.0.1",
-     "port": "24456",
-        "protocol": "vless",
-        "settings": {
-         "decryption":"none",
-           "clients": [
-             {
-               "id": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d"
-#vless
-             }
-          ]
-       },
-          "streamSettings":{
-             "network": "grpc",
-             "grpcSettings": {
-                "serviceName": "vless-grpc"
-           }
-        }
-     },
-     {
-      "listen": "127.0.0.1",
-     "port": "31234",
-     "protocol": "vmess",
-      "settings": {
-            "clients": [
-               {
-                 "id": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d",
-                 "alterId": 0
-#vmess
-             }
-          ]
-       },
-       "streamSettings":{
-         "network": "grpc",
-            "grpcSettings": {
-                "serviceName": "vmess-grpc"
+        "decryption": "none",
+        "clients": [
+          {
+            "password": "rerechan-store" // #trojan
           }
+        ],
+        "udp": true
+      },
+      "streamSettings": {
+        "network": "ws",
+        "wsSettings": {
+          "path": "/t"
         }
-     },
-     {
-        "listen": "127.0.0.1",
-     "port": "33456",
-        "protocol": "trojan",
-        "settings": {
-          "decryption":"none",
-             "clients": [
-               {
-                 "password": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d"
-#trojan
-               }
-           ]
-        },
-         "streamSettings":{
-         "network": "grpc",
-           "grpcSettings": {
-               "serviceName": "trojan-grpc"
-         }
       }
-   },
+    },
+    // VLESS gRPC Inbound
     {
-            "listen": "127.0.0.1",
-            "port": 8001,
-            "protocol": "vmess",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "nonescript-fn-project"
-#vmess
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "httpupgrade",
-                "httpupgradeSettings": {
-                    "path": "/love"
-                }
-            },
-            "sniffing": {
-                "enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls",
-                    "quic"
-                ]
-            }
-        },
-    {
-            "listen": "127.0.0.1",
-            "port": 8002,
-            "protocol": "trojan",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "nonescript-fn-project"
-#trojan
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "httpupgrade",
-                "httpupgradeSettings": {
-                    "path": "/dinda"
-                }
-            },
-            "sniffing": {
-                "enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls",
-                    "quic"
-                ]
-            }
-        },
-    {
-            "listen": "127.0.0.1",
-            "port": 8003,
-            "protocol": "vless",
-            "settings": {
-                "clients": [
-                    {
-                        "id": "nonescript-fn-project"
-#vless
-                    }
-                ],
-                "decryption": "none"
-            },
-            "streamSettings": {
-                "network": "httpupgrade",
-                "httpupgradeSettings": {
-                    "path": "/rere"
-                }
-            },
-            "sniffing": {
-                "enabled": true,
-                "destOverride": [
-                    "http",
-                    "tls",
-                    "quic"
-                ]
-            }
+      "listen": "0.0.0.0",
+      "port": 24456,
+      "protocol": "vless",
+      "settings": {
+        "decryption": "none",
+        "clients": [
+          {
+            "id": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d" // #vless
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "vless-grpc"
         }
+      }
+    },
+    // VMess gRPC Inbound
+    {
+      "listen": "0.0.0.0",
+      "port": 31234,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d",
+            "alterId": 0 // #vmess
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "vmess-grpc"
+        }
+      }
+    },
+    // Trojan gRPC Inbound
+    {
+      "listen": "0.0.0.0",
+      "port": 33456,
+      "protocol": "trojan",
+      "settings": {
+        "decryption": "none",
+        "clients": [
+          {
+            "password": "cfbbaafc-8d52-450c-9fb0-145bc8221e6d" // #trojan
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "grpc",
+        "grpcSettings": {
+          "serviceName": "trojan-grpc"
+        }
+      }
+    },
+    // VMess HTTPUpgrade Inbound (love)
+    {
+      "listen": "0.0.0.0",
+      "port": 8001,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "nonescript-fn-project" // #vmess
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "httpupgradeSettings": {
+          "path": "/love"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    },
+    // Trojan HTTPUpgrade Inbound (dinda)
+    {
+      "listen": "0.0.0.0",
+      "port": 8002,
+      "protocol": "trojan",
+      "settings": {
+        "clients": [
+          {
+            "id": "nonescript-fn-project" // #trojan
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "httpupgradeSettings": {
+          "path": "/dinda"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    },
+    // VLESS HTTPUpgrade Inbound (rere)
+    {
+      "listen": "0.0.0.0",
+      "port": 8003,
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "nonescript-fn-project" // #vless
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "httpupgrade",
+        "httpupgradeSettings": {
+          "path": "/rere"
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http", "tls", "quic"]
+      }
+    }
   ],
   "outbounds": [
     {
@@ -295,17 +284,15 @@
     "rules": [
       {
         "type": "field",
+        "ip": ["192.168.0.0/16", "10.0.0.0/8", "127.0.0.1/8"],
+        "outboundTag": "direct"
+      },
+      {
+        "type": "field",
         "ip": [
-          "0.0.0.0/8",
-          "10.0.0.0/8",
           "100.64.0.0/10",
           "169.254.0.0/16",
           "172.16.0.0/12",
-          "192.0.0.0/24",
-          "192.0.2.0/24",
-          "192.168.0.0/16",
-          "198.18.0.0/15",
-          "198.51.100.0/24",
           "203.0.113.0/24",
           "::1/128",
           "fc00::/7",
@@ -314,26 +301,20 @@
         "outboundTag": "blocked"
       },
       {
-        "inboundTag": [
-          "api"
-        ],
-        "outboundTag": "api",
-        "type": "field"
+        "type": "field",
+        "inboundTag": ["api"],
+        "outboundTag": "api"
       },
       {
         "type": "field",
         "outboundTag": "blocked",
-        "protocol": [
-          "bittorrent"
-        ]
+        "protocol": ["bittorrent"]
       }
     ]
   },
   "stats": {},
   "api": {
-    "services": [
-      "StatsService"
-    ],
+    "services": ["StatsService"],
     "tag": "api"
   },
   "policy": {
@@ -346,8 +327,8 @@
     "system": {
       "statsInboundUplink": true,
       "statsInboundDownlink": true,
-      "statsOutboundUplink" : true,
-      "statsOutboundDownlink" : true
+      "statsOutboundUplink": true,
+      "statsOutboundDownlink": true
     }
   }
 }
