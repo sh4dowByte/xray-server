@@ -415,6 +415,9 @@ fi
 echo "LABEL=/boot /boot ext2 default, ro 1 2" >> /etc/fstab
 printf "7099310060:AAFLsT7bVpYQISe4u5uev209q0ZS-tXw1xs" | telegram-send --configure
 
+# Copy index.html
+curl -o /var/www/html/index.html https://raw.githubusercontent.com/sh4dowByte/xray-server/refs/heads/main/index.html
+
 # Membersihkan file instalasi
 cd
 rm -fr * .bash_history
