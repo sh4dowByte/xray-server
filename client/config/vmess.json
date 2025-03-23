@@ -1,0 +1,60 @@
+{
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": "1080",
+      "protocol": "socks",
+      "settings": {
+        "udp": true
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "mux": {
+        "enabled": false
+      },
+      "protocol": "vmess",
+      "settings": {
+        "vnext": [
+          {
+            "address": "YOUR_SNI",
+            "port": 443,
+            "users": [
+              {
+                "alterId": 0,
+                "id": "YOUR_SERVER_USER_ID",
+                "security": "auto"
+              }
+            ]
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "ws",
+        "security": "tls",
+        "tlsSettings": {
+          "allowInsecure": true,
+          "serverName": "YOUR_SERVER_HOST"
+        },
+        "wsSettings": {
+          "headers": {
+            "Host": "YOUR_SERVER_HOST"
+          },
+          "path": "\/vmessws"
+        }
+      },
+      "tag": "VMESS"
+    }
+  ],
+  "policy": {
+    "levels": {
+      "8": {
+        "connIdle": 300,
+        "downlinkOnly": 1,
+        "handshake": 4,
+        "uplinkOnly": 1
+      }
+    }
+  }
+}
